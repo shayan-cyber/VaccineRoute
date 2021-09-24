@@ -1,0 +1,70 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="{% static 'style.css' %}">
+</head>
+<body>
+  <div style="margin-top:2rem; margin-bottom: 1rem;" class="card border" id="map-card">
+    <div style="margin-bottom: 20px;" id="maptext" class="card-header">
+        Route
+    </div>
+    <div class="card_body">
+
+        <div  id="map"></div>
+    </div>
+
+  </div>
+
+  <div style="margin-top:2rem; margin-bottom: 1rem;" class="card border" id="map-card">
+      <div style="margin-bottom: 20px;" id="maptext" class="card-header">
+        Route
+      </div>
+       <div class="card_body">
+         {% if details %}
+          {% for i, key in details.items %}
+          <p>{{i}} : {{key}}</p>
+          {% endfor %}
+
+          {% else %}
+          <p>No details available</p>
+         {% endif %}
+        
+        
+        
+       </div>
+
+  </div>
+
+
+    
+  
+
+
+  <script src="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.js"></script>
+    <link type="text/css" rel="stylesheet" href="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.css"/>
+
+    <script type="text/javascript">
+      window.onload = function() {
+        L.mapquest.key = 'S8d7L47mdyAG5nHG09dUnSPJjreUVPeC';
+        // 28.7041° N, 77.1025°
+        // 26.1445° N, 91.7362
+        var map = L.mapquest.map('map', {
+          center: [{{end_lat}}, {{end_long}}],
+          layers: L.mapquest.tileLayer('map'),
+          zoom: 13
+        });
+
+        L.mapquest.directions().route({
+          start:[ {{start_lat}}, {{start_long}}],
+          end:[{{end_lat}}, {{end_long}}]
+        });
+      }
+    </script>
+</body>
+</html>

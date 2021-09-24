@@ -1,0 +1,160 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    
+</head>
+
+<body>
+    <p style="display: none;" id="centers">{{centers_list}}</p>
+    <div class="lg">
+        <button class="btn btn-normal block-btn" style="display: block;" type="button" id="trigger" onclick="getLocation()">Show Map</button>
+    </div>
+    <div style="margin-top:2rem; margin-bottom: 1rem;" class="card border" id="map-card">
+        <div style="margin-bottom: 20px;" id="maptext" class="card-header">
+            Map
+        </div>
+        <div class="card_body">
+    
+            <div style="display:none"  id="map"></div>
+        </div>
+    
+      </div>
+   
+    
+    <script>
+        function getLocation() {
+        var x = document.getElementById("map");
+        var y = document.getElementById("maptext");
+        
+    
+      
+        x.style.display = "block";
+       
+        
+        
+    
+        console.log("Hello");
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(initMap);
+          console.log("Hello");
+        } 
+      
+        }
+    
+    
+    </script>
+    
+    <!-- Map Marker -->
+    
+    
+    
+    <script>
+        // var centers = document.getElementById("centers").innerText;
+        // console.log(JSON.parse(centers));
+        // centers_obj = JSON.parse(centers)
+    
+   
+      function initMap(position){
+        console.log(position);
+          // maps options
+          var options = {
+              zoom: 12,
+              center:{lat:position.coords.latitude, lng:position.coords.longitude}
+          }
+          var map = new google.maps.Map(document.getElementById('map'),options);
+          console.log("map");
+    
+    
+              
+    
+              
+    
+            
+            
+    
+        
+          // Array Of markers
+          var markers = [
+              
+          {% for i, key in centers_list.items %}
+
+          {
+              coords:{
+                  {% for x,y in key.items  %}
+                  {{x}}:{{y}},
+                  {% endfor %}
+                },
+
+
+                
+              iconImage:"https://img.icons8.com/external-inipagistudio-mixed-inipagistudio/34/000000/external-immunity-immunization-awareness-inipagistudio-mixed-inipagistudio.png",
+              content: '<p style="font-weight:bold">Locator : {{i}} </p> <br> <a href ="/get_route' {% for x,y in key.items  %} +'/{{y}}' {% endfor %}+ '/{{lat}}/{{longi}}' +'">Route</a>'
+          },
+
+          {% endfor %}
+    
+    
+          ];
+
+          console.log(markers);
+         
+
+
+      
+    
+          for (var  i=0; i<markers.length;i++){
+              
+            addMarker(markers[i]);
+          }
+          
+          // add marker Function
+          var gmarkers = [];
+          var executed = false;
+          function addMarker(props){
+            
+            
+              var marker = new google.maps.Marker({
+             position :props.coords,
+               map:map,
+               
+    
+    
+           })
+            
+            // executed = true
+             
+           if(props.iconImage){
+               marker.setIcon(props.iconImage);
+    
+           }
+           if(props.content){
+              var infoWindow = new google.maps.InfoWindow({
+              content : props.content,
+          });
+          marker.addListener('click', function(){
+              infoWindow.open(map, marker );
+          })
+    
+           }
+    
+          }
+    
+    
+    
+    
+      }
+    </script>
+    <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCGjsl4UqbYWGhKj9T_jTXvNAcln5TkUc&callback=initMap&libraries=&v=weekly"
+    defer
+    ></script>
+    
+</body>
+</html>
