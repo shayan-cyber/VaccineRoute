@@ -155,9 +155,9 @@ def get_route(request,center_id,pincode, lat, longi, cur_lat, cur_longi):
 
             print("yes")
             details['Name']= i['name']
-            details['available_capacity_dose1'] = i['available_capacity_dose1']
-            details['available_capacity_dose2'] = i['available_capacity_dose2']
-            details['vaccine'] = i['vaccine']
+            details['Available capacity dose one'] = i['available_capacity_dose1']
+            details['Available capacity dose two'] = i['available_capacity_dose2']
+            details['Vaccine'] = i['vaccine']
 
 
     # for i in centers:

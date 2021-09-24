@@ -14,12 +14,14 @@
 <body>
     <!-- navbar start -->
     <div class="topnav">
-        <a href="#home">Home</a>
-        <a href="#news">News</a>
-        <a href="#contact">Contact</a>
-        <a href="#about">About</a>
+        <a href="/">Locate</a>
+        <a href="">About</a>
+        
     </div>
     <!-- navbar end -->
+
+
+    <!-- hero section start-->
     <div id="hero" class="container center">
         <center>
             <img style="width: 900px; max-width: 60vw; max-height: 40vh" src="{% static 'map.svg' %}" alt="">
@@ -27,9 +29,12 @@
 
         <h1 style="text-align: center">Track vaccination centers</h1>
     </div>
+    <!-- hero section end -->
+
 
     <br>
-
+    
+    <!-- double button start -->
     <div class="center btn-div">
         <div class="lg">
             <button class="btn btn-normal block-btn" id="trigger" onclick="getLocation()">
@@ -38,8 +43,11 @@
             <button class="btn btn-normal block-btn" id="use_pin">Use PIN</button>
         </div>
     </div>
+    <!-- double button end -->
 
-    <div style="margin-top: 2rem; margin-bottom: 1rem; display: none; padding: 1rem; width:80%" class="card border center" id="map-card">
+
+    <!-- map card start -->
+    <div style="margin-top: 2rem; margin-bottom: 1rem; display: none; padding: 2rem; width:80%" class="card border center" id="map-card">
         <div style="display: none; margin-bottom: 20px" id="maptext" class="card-header">
             Mark The Location
         </div>
@@ -47,10 +55,15 @@
             <div style="display: none" id="map"></div>
         </div>
     </div>
+    <!-- map card end -->
+
+
+
     <!-- <div class="lg">
         <button style="display: none" class="btn btn-normal block-btn" id="my_loc" >My Location</button>
     </div> -->
 
+    <!-- form for coordinates and pin start -->
     <div class="container center">
         
         <form method="POST" action="{% url 'select_location' %}">
@@ -73,8 +86,14 @@
             </div>
         </form>
     </div>
+    <!-- form for coordinates and pin end -->
 
+
+
+
+    <!-- script for listening button click start -->
     <script>
+        // listening to use map button
         function getLocation() {
             var x = document.getElementById("map");
             var y = document.getElementById("maptext");
@@ -92,14 +111,17 @@
             m.style.display = "none";
             document.getElementById("map-card").style.display = "block";
             document.getElementById("type").value = "map";
-            // document.getElementById("my_loc").style.display = "block";
+        
 
             console.log("Hello");
             if (navigator.geolocation) {
+                // get my location and pass to gmap api call
                 navigator.geolocation.getCurrentPosition(initMap);
                 console.log("Hello");
             }
         }
+
+         // listening to use map button
         document.getElementById("use_pin").addEventListener("click", () => {
             document.getElementById("map").style.display = "block";
             document.getElementById("coo").style.display = "block";
@@ -113,14 +135,18 @@
             document.getElementById("submit_btn").style.display = "block";
             document.getElementById("hero").style.display = "none";
             console.log("Hello");
+             // get my location and pass to gmap api call
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(initMap);
                 console.log("Hello");
             }
         });
     </script>
+    <!-- script for listening button click end -->
 
-    <!-- Map Marker -->
+
+
+    <!--  Set Map Marker start-->
 
     <script>
         function initMap(position) {
@@ -142,13 +168,12 @@
                 console.log(event.latLng);
 
                 if (tick) {
-                    document
-                        .getElementById("example")
-                        .setAttribute("value", event.latLng);
-                    document
-                        .getElementById("example")
-                        .setAttribute("placeholder", event.latLng);
+                    // setting selected marker lat long in input field
+                    document.getElementById("example").setAttribute("value", event.latLng);
+                    document.getElementById("example").setAttribute("placeholder", event.latLng);
 
+
+                    // adding marker
                     addMarker({
                         coords: event.latLng,
                         iconImage:
