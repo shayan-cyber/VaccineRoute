@@ -62,7 +62,7 @@ def select_location(request):
             #     print('\n')
             #     print(i['lat'])
             centers = resp_json['centers']
-            print(centers)
+            # print(centers)
             centers_list = {}
             for i in centers:
                 # print(i)
@@ -117,7 +117,8 @@ def select_location(request):
                 'centers_list':centers_list,
                 'centers':resp_json,
                 'lat':lat,
-                'longi':longi
+                'longi':longi,
+                'pin':True,
 
             }
 
@@ -143,14 +144,13 @@ def get_route(request,center_id,pincode, lat, longi, cur_lat, cur_longi):
     COWIN_URL = f"https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByPin?pincode={pincode}&date={d1}"
     print(COWIN_URL)
     resp = requests.get(COWIN_URL)
-    # print(resp.json())
-    # print(json.loads(resp))
+   
     resp_json = resp.json()
     details = {}
-    # print(resp_json)
+   
     for i in resp_json['sessions']:
         print(i['center_id'])
-        # print(center_id)
+        
         if str(i['center_id']) == str(center_id):
 
             print("yes")
@@ -171,4 +171,7 @@ def get_route(request,center_id,pincode, lat, longi, cur_lat, cur_longi):
         'end_long':cur_longi,
         'details':details,
     }
+
+
+    
     return render(request, 'get_route.html', context)

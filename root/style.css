@@ -27,12 +27,12 @@ background-color: #0d6efd;
 border-color: #0d6efd;
 
 }
-#block-btn{
+.block-btn{
     background-color: #03dac5;
     border: #03dac5;
     color: #fff 
 }
-#block-btn:hover{
+.block-btn:hover{
     transform: translate(0, -2px);
     background-color:#01a299
 
@@ -82,3 +82,13 @@ border-color: #0d6efd;
     -webkit-border-radius: 35px 35px 35px 35px;
     border: 0px solid #deff4f;
 }
+
+input {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }

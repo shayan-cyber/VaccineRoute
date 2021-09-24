@@ -3,78 +3,76 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link rel="stylesheet" href="{% static 'style.css' %}" />
 </head>
-<style>
 
-</style>
 
 <body>
+    <!-- navbar start -->
+    <div class="topnav">
+        <a href="#home">Home</a>
+        <a href="#news">News</a>
+        <a href="#contact">Contact</a>
+        <a href="#about">About</a>
+    </div>
+    <!-- navbar end -->
+    <div id="hero" class="container center">
+        <center>
+            <img style="width: 900px; max-width: 60vw; max-height: 40vh" src="{% static 'map.svg' %}" alt="">
+        </center>
 
-
-
-
-
-    <div class="lg">
-
-        <button class="btn btn-normal block-btn" id="trigger" onclick="getLocation()">Use Map</button>
-        <button class="btn btn-normal block-btn" id="use_pin">Use PIN</button>
-
+        <h1 style="text-align: center">Track vaccination centers</h1>
     </div>
 
-    <div style="margin-top:2rem; margin-bottom: 1rem; display: none;" class="card border" id="map-card">
-        <div style="
-        display: none;
-        margin-bottom: 20px;" id="maptext" class="card-header">
+    <br>
+
+    <div class="center btn-div">
+        <div class="lg">
+            <button class="btn btn-normal block-btn" id="trigger" onclick="getLocation()">
+                Use Map
+            </button>
+            <button class="btn btn-normal block-btn" id="use_pin">Use PIN</button>
+        </div>
+    </div>
+
+    <div style="margin-top: 2rem; margin-bottom: 1rem; display: none; padding: 1rem; width:80%" class="card border center" id="map-card">
+        <div style="display: none; margin-bottom: 20px" id="maptext" class="card-header">
             Mark The Location
         </div>
         <div class="card_body">
-
             <div style="display: none" id="map"></div>
         </div>
-
     </div>
     <!-- <div class="lg">
         <button style="display: none" class="btn btn-normal block-btn" id="my_loc" >My Location</button>
     </div> -->
 
+    <div class="container center">
+        
+        <form method="POST" action="{% url 'select_location' %}">
+            {% csrf_token %}
 
-
-
-    <div class="container mt-5">
-
-
-        <br><br>
-        <form method="POST" action="{% url 'select_location' %}">{% csrf_token %}
-
-
-            <div style="display: none" id="coo" class="row mb-3">
+            <div style="display: none" id="coo">
                 <label for="example">Coordinates</label>
 
-                <input type="text" name="pos" id="example" aria-label="readonly input example" readonly />
+                <input type="text" name="pos" id="example" aria-label="readonly input example" readonly
+                    placeholder="read only" />
 
                 <label id="label_pin" style="display: none" for="">Pin</label>
-                <input style="display:none" name="pin" type="number" min="100000" max="999999" id="pin">
-                <input style="display: none;" type="text" id="type" name="type">
-
+                <input style="display: none" name="pin" type="number" min="100000" max="999999" id="pin" />
+                <input style="display: none" type="text" id="type" name="type" />
             </div>
-            <div style="margin-top:2rem" class="lg">
-                <button style="display: none;" id="submit_btn" class="btn btn-normal block-btn"
-                    type="button">submit</button>
+            <div style="margin-top: 1rem" class="lg">
+                <button style="display: none" id="submit_btn" class="btn btn-normal block-btn" type="button">
+                    submit
+                </button>
             </div>
-
         </form>
-
     </div>
-
-
-
-
-
 
     <script>
         function getLocation() {
@@ -83,17 +81,17 @@
             var z = document.getElementById("coo");
             var m = document.getElementById("trigger");
             document.getElementById("use_pin").style.display = "block";
-            document.getElementById('pin').style.display = "none";
-            document.getElementById('label_pin').style.display = "none";
-            document.getElementById('submit_btn').style.display = "block"
-
+            document.getElementById("pin").style.display = "none";
+            document.getElementById("label_pin").style.display = "none";
+            document.getElementById("submit_btn").style.display = "block";
+            document.getElementById("hero").style.display = "none";
 
             x.style.display = "block";
             y.style.display = "block";
             z.style.display = "block";
             m.style.display = "none";
             document.getElementById("map-card").style.display = "block";
-            document.getElementById('type').value = 'map'
+            document.getElementById("type").value = "map";
             // document.getElementById("my_loc").style.display = "block";
 
             console.log("Hello");
@@ -109,55 +107,53 @@
             document.getElementById("map-card").style.display = "block";
             document.getElementById("trigger").style.display = "block";
             document.getElementById("use_pin").style.display = "none";
-            document.getElementById('type').value = 'pin'
-            document.getElementById('pin').style.display = "block";
-            document.getElementById('label_pin').style.display = "block";
-            document.getElementById('submit_btn').style.display = "block"
-
+            document.getElementById("type").value = "pin";
+            document.getElementById("pin").style.display = "block";
+            document.getElementById("label_pin").style.display = "block";
+            document.getElementById("submit_btn").style.display = "block";
+            document.getElementById("hero").style.display = "none";
             console.log("Hello");
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(initMap);
                 console.log("Hello");
             }
-
-
-
-
-        })
-
-
+        });
     </script>
 
     <!-- Map Marker -->
 
     <script>
-
-
-
-
         function initMap(position) {
             console.log(position);
             // maps options
             var options = {
                 zoom: 14,
-                center: { lat: position.coords.latitude, lng: position.coords.longitude }
-            }
-            var map = new
-                google.maps.Map(document.getElementById('map'), options);
+                center: {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude,
+                },
+            };
+            var map = new google.maps.Map(document.getElementById("map"), options);
             console.log("hola");
-
 
             //   Listen For Click On map
             var tick = true;
-            google.maps.event.addListener(map, 'click', function (event) {
+            google.maps.event.addListener(map, "click", function (event) {
                 console.log(event.latLng);
 
-
                 if (tick) {
-                    document.getElementById("example").setAttribute('value', event.latLng);
-                    document.getElementById("example").setAttribute('placeholder', event.latLng);
+                    document
+                        .getElementById("example")
+                        .setAttribute("value", event.latLng);
+                    document
+                        .getElementById("example")
+                        .setAttribute("placeholder", event.latLng);
 
-                    addMarker({ coords: event.latLng, iconImage: "https://img.icons8.com/clouds/50/000000/add-trash.png" });
+                    addMarker({
+                        coords: event.latLng,
+                        iconImage:
+                            "https://img.icons8.com/external-justicon-lineal-color-justicon/54/000000/external-syringe-plastic-surgery-justicon-lineal-color-justicon.png",
+                    });
 
                     function removeMarkers() {
                         for (i = 0; i < gmarkers.length - 1; i++) {
@@ -166,123 +162,81 @@
                     }
                     removeMarkers();
                 }
-
-
-
-
-
-
-
-
-            })
+            });
             // Array Of markers
-
 
             // add marker Function
 
             var executed = false;
             function addMarker2(props) {
-
-
                 var marker = new google.maps.Marker({
                     position: props.coords,
                     map: map,
-
-
-
-                })
-
-
+                });
 
                 if (props.iconImage) {
                     marker.setIcon(props.iconImage);
-
                 }
                 if (props.content) {
                     var infoWindow = new google.maps.InfoWindow({
                         content: props.content,
                     });
-                    marker.addListener('click', function () {
+                    marker.addListener("click", function () {
                         infoWindow.open(map, marker);
-                    })
-
+                    });
                 }
-
             }
-
-
-
 
             // add marker Function
             var gmarkers = [];
             var executed = false;
             function addMarker(props) {
-
                 if (!executed) {
                     var marker = new google.maps.Marker({
                         position: props.coords,
                         map: map,
-
-
-
-                    }); gmarkers.push(marker);
+                    });
+                    gmarkers.push(marker);
                 }
                 // executed = true
 
                 if (props.iconImage) {
                     marker.setIcon(props.iconImage);
-
                 }
                 if (props.content) {
                     var infoWindow = new google.maps.InfoWindow({
                         content: props.content,
                     });
-                    marker.addListener('click', function () {
+                    marker.addListener("click", function () {
                         infoWindow.open(map, marker);
-                    })
-
+                    });
                 }
-
             }
-
-
-
-
         }
 
         document.getElementById("submit_btn").addEventListener("click", () => {
-            if (document.getElementById('type').value == 'pin') {
-
+            if (document.getElementById("type").value == "pin") {
                 if (document.getElementById("example").value == "") {
-                    alert("Please select loaction from map")
+                    alert("Please select loaction from map");
                 } else {
-                    if(document.getElementById("pin").value == ""){
-                        alert("Please enter pin")
-
-                    }else{
-                        document.getElementById("submit_btn").type = "submit"
+                    if (document.getElementById("pin").value == "") {
+                        alert("Please enter pin");
+                    } else {
+                        document.getElementById("submit_btn").type = "submit";
                     }
-                    
                 }
-
-            } else if(document.getElementById('type').value == 'map') {
-
+            } else if (document.getElementById("type").value == "map") {
                 if (document.getElementById("example").value == "") {
-                    alert("Please select loaction from map")
+                    alert("Please select loaction from map");
                 } else {
-                    document.getElementById("submit_btn").type = "submit"
+                    document.getElementById("submit_btn").type = "submit";
                 }
-
             }
-
-        })
+        });
     </script>
     <script
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCGjsl4UqbYWGhKj9T_jTXvNAcln5TkUc&callback=initMap&libraries=&v=weekly"
         defer></script>
-
-
-
 </body>
 
 </html>
