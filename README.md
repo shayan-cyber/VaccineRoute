@@ -40,7 +40,9 @@ Home Page
 ![App Screenshot](https://i.imgur.com/Bi67MH6.png)
 
 
-
+## Contributors
+Shayan Debroy
+Diya Karmakar
 
 
 
