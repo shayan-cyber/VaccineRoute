@@ -9,53 +9,57 @@
     <title>Document</title>
     <link rel="stylesheet" href="{% static 'style.css' %}" />
 </head>
-
+<style>
+  
+</style>
 
 <body>
     <!-- navbar start -->
-    <div class="topnav">
+    <div class="topnav sticky">
         <a href="/">Locate</a>
-        <a href="">About</a>
+        <a href="{% url 'about' %}">About</a>
         
     </div>
     <!-- navbar end -->
 
 
-    <!-- hero section start-->
-    <div id="hero" class="container center">
-        <center>
-            <img style="width: 900px; max-width: 60vw; max-height: 40vh" src="{% static 'map.svg' %}" alt="">
-        </center>
+    <section class="content">
+            <!-- hero section start-->
+            <div id="hero" class="container center">
+                <center>
+                    <img style="width: 900px; max-width: 60vw; max-height: 40vh" src="{% static 'map.svg' %}" alt="">
+                </center>
 
-        <h1 style="text-align: center">Track vaccination centers</h1>
-    </div>
-    <!-- hero section end -->
+                <h1 style="text-align: center">Track vaccination centers</h1>
+            </div>
+            <!-- hero section end -->
 
 
-    <br>
+
     
-    <!-- double button start -->
-    <div class="center btn-div">
-        <div class="lg">
-            <button class="btn btn-normal block-btn" id="trigger" onclick="getLocation()">
-                Use Map
-            </button>
-            <button class="btn btn-normal block-btn" id="use_pin">Use PIN</button>
-        </div>
-    </div>
-    <!-- double button end -->
+            <!-- double button start -->
+            <div class="center btn-div">
+                <div class="lg">
+                    <button class="btn btn-normal block-btn" id="trigger" onclick="getLocation()">
+                        Use Map
+                    </button>
+                    
+                </div>
+            </div>
+            <!-- double button end -->
 
 
-    <!-- map card start -->
-    <div style="margin-top: 2rem; margin-bottom: 1rem; display: none; padding: 2rem; width:80%" class="card border center" id="map-card">
-        <div style="display: none; margin-bottom: 20px" id="maptext" class="card-header">
-            Mark The Location
-        </div>
-        <div class="card_body">
-            <div style="display: none" id="map"></div>
-        </div>
-    </div>
-    <!-- map card end -->
+            <!-- map card start -->
+            <div style="margin-top: 2rem; margin-bottom: 1rem; display: none; padding: 2rem; width:80%" class="card border center" id="map-card">
+                <div style="display: none; margin-bottom: 20px" id="maptext" class="card-header">
+                    <strong style="font-size: large; color: #5271ff">
+                    Mark the location from map</strong>
+                </div>
+                <div class="card_body">
+                    <div style="display: none" id="map"></div>
+                </div>
+            </div>
+            <!-- map card end -->
 
 
 
@@ -63,34 +67,35 @@
         <button style="display: none" class="btn btn-normal block-btn" id="my_loc" >My Location</button>
     </div> -->
 
-    <!-- form for coordinates and pin start -->
-    <div class="container center">
-        
-        <form method="POST" action="{% url 'select_location' %}">
-            {% csrf_token %}
+        <!-- form for coordinates and pin start -->
+        <div class="container center">
+            
+            <form method="POST" action="{% url 'select_location' %}">
+                {% csrf_token %}
 
-            <div style="display: none" id="coo">
-                <label for="example">Coordinates</label>
+                <div style="display: none" id="coo">
+                    <label for="example">Coordinates</label>
 
-                <input type="text" name="pos" id="example" aria-label="readonly input example" readonly
-                    placeholder="read only" />
+                    <input type="text" name="pos" id="example" aria-label="readonly input example" readonly
+                        placeholder="read only" />
 
-                <label id="label_pin" style="display: none" for="">Pin</label>
-                <input style="display: none" name="pin" type="number" min="100000" max="999999" id="pin" />
-                <input style="display: none" type="text" id="type" name="type" />
-            </div>
-            <div style="margin-top: 1rem" class="lg">
-                <button style="display: none" id="submit_btn" class="btn btn-normal block-btn" type="button">
-                    submit
-                </button>
-            </div>
-        </form>
-    </div>
-    <!-- form for coordinates and pin end -->
+                    <label id="label_pin" style="display: none" for="">Pin</label>
+                    <input style="display: none" name="pin" type="number" min="100000" max="999999" id="pin" />
+                    <input style="display: none" type="text" id="type" name="type" />
+                </div>
+                <div style="margin-top: 1rem" class="lg">
+                    <button style="display: none" id="submit_btn" class="btn btn-normal block-btn" type="button">
+                        Track
+                    </button>
+                </div>
+            </form>
+        </div>
+        <!-- form for coordinates and pin end -->
+    </section>
 
 
 
-
+    <script src="{% static 'my.js' %}"></script>
     <!-- script for listening button click start -->
     <script>
         // listening to use map button
@@ -99,9 +104,7 @@
             var y = document.getElementById("maptext");
             var z = document.getElementById("coo");
             var m = document.getElementById("trigger");
-            document.getElementById("use_pin").style.display = "block";
-            document.getElementById("pin").style.display = "none";
-            document.getElementById("label_pin").style.display = "none";
+            
             document.getElementById("submit_btn").style.display = "block";
             document.getElementById("hero").style.display = "none";
 
@@ -122,25 +125,8 @@
         }
 
          // listening to use map button
-        document.getElementById("use_pin").addEventListener("click", () => {
-            document.getElementById("map").style.display = "block";
-            document.getElementById("coo").style.display = "block";
-            document.getElementById("maptext").style.display = "block";
-            document.getElementById("map-card").style.display = "block";
-            document.getElementById("trigger").style.display = "block";
-            document.getElementById("use_pin").style.display = "none";
-            document.getElementById("type").value = "pin";
-            document.getElementById("pin").style.display = "block";
-            document.getElementById("label_pin").style.display = "block";
-            document.getElementById("submit_btn").style.display = "block";
-            document.getElementById("hero").style.display = "none";
-            console.log("Hello");
-             // get my location and pass to gmap api call
-            if (navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(initMap);
-                console.log("Hello");
-            }
-        });
+        
+           
     </script>
     <!-- script for listening button click end -->
 

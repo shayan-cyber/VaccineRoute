@@ -13,50 +13,69 @@
 
 <body>
   <!-- navbar start -->
-  <div class="topnav">
+  <div class="topnav sticky">
     <a href="/">Locate</a>
-    <a href="">About</a>
+    <a href="{% url 'about' %}">About</a>
   </div>
   <!-- navbar end -->
 
-  <div id="hero" class="container center">
-    <center>
-      <img style="width: 900px; max-width: 60vw; max-height: 40vh" src="{% static 'location.svg' %}" alt="">
-    </center>
-    <h1 class="heading" style="text-align: center">Select vaccination center</h1>
-  </div>
+
+
+  <!-- section content start -->
+  <section class="content">
+
+
+     <!-- hero section start-->
+      <div id="hero" class="container center">
+        <center>
+          <img style="width: 900px; max-width: 60vw; max-height: 40vh" src="{% static 'location.svg' %}" alt="">
+        </center>
+        <h1 class="heading" style="text-align: center">Select vaccination center</h1>
+      </div>
+     <!-- hero section end-->
   
-
-
-
-    <p style="display: none;" id="centers">{{centers_list}}</p>
-
-
-    <br>
-    <div class="center btn-div">
+  
+  
+      <p style="display: none;" id="centers">{{centers_list}}</p>
+  
+  
+      <!-- show map button start -->
+      <div class="center btn-div">
+        
+  
+        <div class="lg">
+          <button class="btn btn-normal block-btn" style="display: block;" type="button" id="trigger" onclick="getLocation()">Show Map</button>
+        </div>
+  
+      </div>
+      <!-- show map button end -->
       
-
-      <div class="lg">
-        <button class="btn btn-normal block-btn" style="display: block;" type="button" id="trigger" onclick="getLocation()">Show Map</button>
+  
+      <!-- show map card start -->
+      <div style="margin-top: 2rem; margin-bottom: 1rem;  padding: 2rem; width:80%" class="card border center" id="map-card">
+          <div style="margin-bottom: 20px;" id="maptext" class="card-header">
+              Map
+          </div>
+          <div class="card_body">
+      
+              <div style="display:none"  id="map"></div>
+          </div>
+      
       </div>
-
-    </div>
-    
+      <!-- show map card end -->
 
 
-    <div style="margin-top: 2rem; margin-bottom: 1rem;  padding: 2rem; width:80%" class="card border center" id="map-card">
-        <div style="margin-bottom: 20px;" id="maptext" class="card-header">
-            Map
-        </div>
-        <div class="card_body">
+  </section>
+   <!-- section content end -->
     
-            <div style="display:none"  id="map"></div>
-        </div>
-    
-      </div>
-   
-    
-    <script>
+
+
+
+
+
+
+      <script src="{% static 'my.js' %}"></script>
+      <script>
         function getLocation() {
         var x = document.getElementById("map");
         var y = document.getElementById("maptext");
@@ -122,7 +141,12 @@
           {
               coords:{
                   {% for x,y in key.items  %}
+                  {% if forloop.counter == 3  %}
                   {{x}}:{{y}},
+                  {% elif forloop.counter == 4 %}
+                  
+                  {{x}}:{{y}},
+                  {% endif %}
                   {% endfor %}
                 },
 
@@ -136,6 +160,7 @@
     
     
           ];
+          console.log("markers");
 
           console.log(markers);
          

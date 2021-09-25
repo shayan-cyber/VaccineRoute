@@ -10,6 +10,11 @@
   <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
 <style>
+
+  html{
+    scroll-behavior: smooth;
+
+  }
   .text{
     padding-left: 1rem;
     padding-right: 1rem;
@@ -26,15 +31,16 @@
 <body>
 
    <!-- navbar start -->
-  <div class="topnav">
+  <div class="topnav sticky">
     <a href="/">Locate</a>
-    <a href="">About</a>
+    <a href="{% url 'about' %}">About</a>
   </div>
   <!-- navbar end -->
   
 
 
-
+<section class="content">
+  
   <div style="margin-top: 2rem; margin-bottom: 1rem;  padding: 2rem; width:80%" class="card border center" id="map-card">
     <div style="margin-bottom: 20px;" id="maptext" class="card-header">
         <strong style="font-size: large; color: #5271ff">Route</strong>
@@ -42,11 +48,23 @@
     <div class="card_body">
 
         <div  id="map"></div>
+
+
+
+        <div style="margin-top:2rem;" class="center btn-div">
+          <div class="lg">
+              
+              <a class="btn btn-normal block-btn" href="#details" >Details</a>
+          </div>
+        </div>
     </div>
 
   </div>
 
-  <div style="margin-top: 2rem; margin-bottom: 1rem;  padding: 3rem; width:60%;" class="card border center" id="map-card">
+
+  
+  <section id="details">
+    <div style="margin-top: 2rem; margin-bottom: 1rem;  padding: 3rem; width:60%;" class="card border center" id="map-card">
       <div style="margin-bottom: 20px;" id="maptext" class="card-header">
         Details
       </div>
@@ -81,6 +99,7 @@
        </div>
 
   </div>
+  </section>
   <br>
   <div style="padding-bottom:1rem" id="hero" class="container center">
     <center>
@@ -89,15 +108,20 @@
     <!-- <h1 class="heading" style="text-align: center">Check the route below</h1> -->
   </div>
   <br><br>
+</section>
 
 
-    
+  
+  
+  <script src="{% static 'my.js' %}"></script>
   
 
 
   <script src="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.js"></script>
-    <link type="text/css" rel="stylesheet" href="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.css"/>
+  <link type="text/css" rel="stylesheet" href="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.css"/>
 
+
+  <!-- show route api call for mapquest -->
     <script type="text/javascript">
       window.onload = function() {
         L.mapquest.key = 'S8d7L47mdyAG5nHG09dUnSPJjreUVPeC';

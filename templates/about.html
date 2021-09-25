@@ -1,0 +1,96 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}" />
+</head>
+
+<style>
+    body{
+        background-color: #ffffff;
+    }
+    .text{
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    /* margin-bottom: 0.3rem; */
+    border: 1px solid #ccced3;
+    border-radius:4px
+   
+  }
+</style>
+<body>
+
+    <!-- navbar start -->
+    <div class="topnav sticky">
+        <a href="/">Locate</a>
+        <a href="{% url 'about' %}">About</a>
+        
+    </div>
+    <!-- navbar end -->
+
+    <section class="content">
+
+        <!-- hero section start-->
+        <div id="hero" class="container center">
+            <center>
+                <img style="width: 400px; max-width: 60vw; max-height: 40vh" src="{% static 'vaccine.jpg' %}" alt="">
+            </center>
+
+            <h1 style="text-align: center">Vaccine for covid free world</h1>
+        </div>
+        <!-- hero section end -->
+
+
+
+        <div style="margin-top: -2rem; width: 80%;" class="container center">
+            
+                <div class="text">
+                    <p style="font-size:larger" >
+                        <img style="margin-right: 0.4rem; margin-bottom: -0.2rem;" src="https://img.icons8.com/external-kiranshastry-gradient-kiranshastry/27/000000/external-map-logistic-delivery-kiranshastry-gradient-kiranshastry.png"/>
+
+                        Search for vaccination centers around you.
+                    </p>
+                </div>
+                <div class="text">
+
+                    <p style="font-size:larger" > 
+                        <img style="margin-right: 0.4rem; margin-bottom: -0.2rem;" src="https://img.icons8.com/external-kiranshastry-gradient-kiranshastry/27/000000/external-route-interface-kiranshastry-gradient-kiranshastry.png"/>
+
+                        Get the route to the selected vaccination center easily.
+                    </p>
+
+                </div>
+                <div class="text">
+
+                    <p style="font-size:larger" >
+                        <img style="margin-right: 0.4rem; margin-bottom: -0.2rem;" src="https://img.icons8.com/ultraviolet/27/000000/place-marker--v2.png"/>
+                        
+                        Search for centers using map markers and coordinates.
+                    </p>
+
+                </div>
+                
+                
+                
+            
+           
+
+        </div>
+
+
+
+
+
+
+
+    </section>
+    
+</body>
+</html>
