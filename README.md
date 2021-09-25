@@ -106,7 +106,7 @@ Home Page
 
 **Backend:** django, Python, Javascript
 
-**API** COWIN API, Google Maps API, Mapquest API
+**API:** COWIN API, Google Maps API, Mapquest API
   
 ## Feedback
 
