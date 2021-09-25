@@ -44,7 +44,7 @@ def select_location(request):
             centers = resp_json['centers']
             centers_list = {}
 
-
+            #making dictionary for frontend with imp details
             for i in centers:
                 centers_list[str(i['name'])] = {
                     'center_id':i['center_id'],
@@ -69,6 +69,8 @@ def select_location(request):
 def get_route(request,center_id,pincode, lat, longi, cur_lat, cur_longi):
     today= datetime.date.today()
     d1 = today.strftime("%d-%m-%Y")
+
+    # making API call for details about the selected center
     COWIN_URL = f"https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByPin?pincode={pincode}&date={d1}"
     resp = requests.get(COWIN_URL)
     resp_json = resp.json()
