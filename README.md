@@ -12,7 +12,7 @@ It is powered by COWIN API, Google maps API, Mapquest API.
 
 to know more visit website: https://easeform.pythonanywhere.com/
 ## Intro Video
-
+https://user-images.githubusercontent.com/65186501/134765174-88713aaf-f3b5-44c1-9d4f-fdaa2aa08a98.mp4
 
 
 ## Screenshots
